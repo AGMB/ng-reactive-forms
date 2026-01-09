@@ -1,0 +1,96 @@
+<h2>Reactivos: <small> Dinámicos </small></h2>
+<hr>
+
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="saveForm()">
+
+    <!-- Nombre -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control" placeholder="Nombre Persona" formControlName="name">
+            @if(formUtil.isValidField(myForm, 'name')){
+            <span class="form-text text-danger">
+                {{formUtil.getErroField(myForm, 'name') | error}}
+            </span>
+            }
+        </div>
+    </div>
+
+    <!-- Agregar Favorito -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+
+            <div class="input-group">
+                <input class="form-control" placeholder="Agregar favorito" [formControl]="newFavorite" (keydown.enter)="addFavorite()">
+                <button class="btn btn-outline-primary" type="button" (click)="addFavorite()">
+                    Agregar favorito
+                </button>
+            </div>
+             @if(formUtil.isValidControl(newFavorite)){
+                <span class="form-text text-danger">
+                   {{formUtil.getErroFromControl(newFavorite) | error}}
+                </span>
+                }
+        </div>
+    </div>
+
+
+    <!-- Lista de Juegos Favoritos -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        <div class="col-sm-9" formArrayName="favoriteGames">
+            @for (game of favoriteGames.controls; track $index; let i = $index) {
+            <div class="mb-1">
+
+                <div class="input-group">
+                    <input class="form-control" [formControlName]="i">
+
+                    <button class="btn btn-outline-danger" type="button" (click)="deleteFavorite(i)">
+                        Eliminar
+                    </button>
+                </div>
+                @if(formUtil.isValidArrayField(favoriteGames, i)){
+                <span class="form-text text-danger">
+                    {{formUtil.getErroFieldFromArray(favoriteGames, i) | error}}
+                </span>
+                }
+
+            </div>
+            }
+             @if(formUtil.isValidArray(favoriteGames)){
+                <span class="form-text text-danger">
+                    {{formUtil.getErroFromArray(favoriteGames) | error}}
+                </span>
+                }
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary float-end"
+            [disabled]="myForm.invalid">
+                <!-- [disabled]="myForm.invalid" -->
+                Guardar
+            </button>
+        </div>
+    </div>
+
+
+</form>
+
+
+
+<span>Valid</span>
+<pre>{{ myForm.valid| json }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{ myForm.value| json }}</pre>
+<br>
+
+<span>Agregar Juego</span>
+<pre>{{ 'object' | json }}</pre>
+<pre>{{ 'object' | json }}</pre>

@@ -1,0 +1,100 @@
+<h2>Reactivos: Básicos</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSaveForm()">
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Nombre del producto"
+                    formControlName="productName">
+
+                    @if(formUtil.isValidField(myForm,'productName')){
+                    <span class="form-text text-danger">
+                        <!-- required -->
+                        {{formUtil.getErroField(myForm, 'productName') | error}}
+                    </span>
+                }
+                </div>
+            </div>
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" placeholder="Precio del producto"  formControlName="productPrice">
+                    @if(formUtil.isValidField(myForm, 'productPrice')){
+                    <span class="form-text text-danger">
+                        <!-- required -->
+                        {{formUtil.getErroField(myForm,'productPrice') | error}}
+                    </span>
+                }
+                </div>
+            </div>
+
+            <!-- Campo de existencias -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" placeholder="Existencias del producto"  formControlName="productStock">
+
+                   @if(formUtil.isValidField(myForm, 'productStock')){
+                    <span class="form-text text-danger">
+                        <!-- required -->
+                        {{formUtil.getErroField(myForm, 'productStock') | error}}
+                    </span>
+                }
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col">
+
+        <span>Valid</span>
+        <pre>{{ myForm.valid | json }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ myForm.pristine| json }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ myForm.touched| json }}</pre>
+
+        <span>Value</span>
+        <pre>{{ myForm.value| json }}</pre>
+
+        <span>Error on ProductName</span>
+        <pre>{{ myForm.controls['productName'].errors| json }}</pre>
+
+        <span>Error on ProductPrice</span>
+        <pre>{{ myForm.controls['productPrice'].errors| json }}</pre>
+
+        <span>Precio</span>
+        <pre>{{ myForm.controls['productPrice'].value | json }}</pre>
+
+        <span>Producto</span>
+        <pre>{{ myForm.controls['productName'].value | json }}</pre>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<h2>Paginas</h2>
+<hr>
+
+<h3 class="mt-3">Reactive Forms</h3>
+
+<ul class="list-group">
+    @for (item of reactiveMenuItems; track $index) {
+    <li>
+        <a [routerLink]="['/reactive/',item.route]" class="list-group-item" >{{item.tittle}}</a>
+    </li>
+    }
+</ul>
+
+<h3 class="mt-3">Auth</h3>
+<ul class="list-group">
+    <li>
+        <a [routerLink]="[authMenuItem.route]" class="list-group-item" >{{authMenuItem.tittle}}</a>
+    </li>
+</ul>
+
+<h3 class="mt-3">Country</h3>
+<ul class="list-group">
+    <li>
+        <a [routerLink]="[countryMenuItems.route]" class="list-group-item" >{{countryMenuItems.tittle}}</a>
+    </li>
+</ul>
