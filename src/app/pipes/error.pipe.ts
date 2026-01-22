@@ -15,6 +15,14 @@ export class ErrorPipe implements PipeTransform {
                 return `This field is ${value['minlength'].requiredLength} - actual: ${value['minlength'].actualLength} `
             case 'min':
                 return `This min value is ${value['min'].min} `
+            case 'email':
+                return `This email is invalid`
+            case 'pattern':
+                return `Invalid value, dont match pattern`
+            case 'nameTaken':
+                return `This UserName can be used`
+            case 'emailTaken':
+                return `This Email can be used`
         }
         return '';
 

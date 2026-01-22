@@ -1,7 +1,18 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors } from "@angular/forms";
+
+function simutaleGoBackend(){
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(true);
+            },2500)
+        });
+    }
 
 export class FormUtils {
 
+    static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+    static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+    static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
     static isValidField(form: FormGroup, fieldName: string): boolean {
         return (form.controls[fieldName].errors ? true : false) && form.controls[fieldName].touched;
     }
@@ -27,10 +38,50 @@ export class FormUtils {
     }
 
     static isValidArray(formArray: FormArray): boolean {
-        return formArray.errors ? true: false;
+        return formArray.errors ? true : false;
     }
 
     static getErroFromArray(formArray: FormArray): ValidationErrors {
         return formArray.errors ?? {};
+    }
+
+    static isFormInvalid(form: FormGroup): boolean {
+        return (form.errors?.['passwordNotEqual'] ? true : false) && form.touched
+    }
+
+    static isPasswordEquals() {
+        return (myForm: AbstractControl) => {
+            const passwordValue1 = myForm.get('passWord1')?.value;
+            const passwordValue2 = myForm.get('passWord2')?.value;
+
+            return passwordValue1 === passwordValue2 ? null : {
+                passwordNotEqual: true
+            }
+
+        }
+    }
+
+    static isUserNameTaken(control: AbstractControl): ValidationErrors | null {
+        const value = control.value;
+        if (value === 'Jagger') {
+            return {
+                nameTaken: true
+            }
+        }
+        return null;
+    }
+
+    static async isEmailTaken(control: AbstractControl): Promise<ValidationErrors | null> {
+
+        await simutaleGoBackend();
+        const value = control.value;
+
+        if(value === 'holamundo@test.com') {
+            return {
+                emailTaken: true
+            }
+        }
+
+        return null;
     }
 }
